@@ -1,28 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 18:13:23 by mkarim            #+#    #+#             */
-/*   Updated: 2022/05/14 09:03:34 by mkarim           ###   ########.fr       */
+/*   Created: 2022/05/10 18:13:17 by mkarim            #+#    #+#             */
+/*   Updated: 2022/05/16 10:56:16 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+long long	ft_atoi(char *s)
 {
-	t_philo	philo;
+	long long	i;
+	long long	res;
+	long long	signe;
 
-	if (argc == 5 || argc == 6)
+	i = 0;
+	res = 0;
+	signe = 1;
+	if (s[i] == '-' || s[i] == '+')
 	{
-		philo.num_philo = ft_atoi(argv[1]);
-		philo.time_die = ft_atoi(argv[2]);
-		philo.time_eat = ft_atoi(argv[3]);
-		philo.time_sleep = ft_atoi(argv[4]);
-		if (argc == 6)
-			philo.nt_eat = ft_atoi(argv[5]);
+		if (s[i] == '-')
+			signe = -1;
+		i++;
 	}
+	while (s[i])
+	{
+		if (s[i] >= '0' && s[i] <= '9')
+			res = res * 10 + s[i] - 48;
+		i++;
+	}
+	return (res * signe);
+}
+
+void	ft_putstr(char *s)
+{
+	int		i;
+
+	i = -1;
+	while (s[++i])
+		write(1, &s[i], 1);
 }
