@@ -6,7 +6,7 @@
 #    By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:09:40 by mkarim            #+#    #+#              #
-#    Updated: 2022/05/16 10:56:41 by mkarim           ###   ########.fr        #
+#    Updated: 2022/05/21 09:06:46 by mkarim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJ = $(SRC:.c=.o)
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -pthread
 
 all : $(NAME)
 
