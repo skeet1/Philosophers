@@ -6,11 +6,33 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:13:17 by mkarim            #+#    #+#             */
-/*   Updated: 2022/05/22 09:20:30 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/04 08:37:08 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	ft_check(char *str)
+{
+	int		i;
+
+	i = -1;
+	while (str[++i])
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+	return (1);
+}
+
+int	ft_check_num(char **argv, int argc)
+{
+	if (!ft_check(argv[1]) || !ft_check(argv[2]) || !ft_check(argv[3])
+			|| !ft_check(argv[4]))
+		return (ft_putstr("Error ARG\n"), 0);
+	if (argc == 6)
+		if (!ft_check(argv[5]))
+			return (ft_putstr("Error ARG\n"), 0);
+	return (1);
+}
 
 int	ft_check_arg(t_data *data, int argc)
 {

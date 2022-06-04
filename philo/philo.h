@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:14:06 by mkarim            #+#    #+#             */
-/*   Updated: 2022/05/22 10:39:07 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/04 08:33:32 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,16 @@ typedef struct s_philo {
 	int				start;
 	int				end;
 	int				n_eating;
-	pthread_mutex_t		mutex;
+	int				last_mile;
+	pthread_mutex_t	mutex;
+	struct s_data	*data;
+
 }	t_philo;
 
 long long	ft_atoi(char *s);
 void		ft_putstr(char *s);
 int			ft_check_arg(t_data *data, int argc);
+int	ft_check_num(char **argv, int argc);
+int	ft_check(char *str);
 
 #endif

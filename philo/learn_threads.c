@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 17:36:28 by mkarim            #+#    #+#             */
-/*   Updated: 2022/05/21 18:18:31 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/05/27 18:16:20 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	*routine()
 {
 	for (int i = 0; i < 1000000; i++)
 	{
-		pthread_mutex_lock(&lock);
+		// pthread_mutex_lock(&lock);
 		mails++;
-		pthread_mutex_unlock(&lock);
+		// pthread_mutex_unlock(&lock);
 	}
 	return (NULL);
 }
