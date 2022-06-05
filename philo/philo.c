@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:13:23 by mkarim            #+#    #+#             */
-/*   Updated: 2022/06/05 09:50:36 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/05 11:07:53 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@ void	*routine(void *philo)
 {
 	t_philo			*tmp;
 	int				id;
-	int				start;
+	// int				start;
 
 	tmp = (t_philo*)philo;
 	id = tmp->index;
-	start = gettimeofday(0, 0);
 	if (id % 2)
 		usleep(100);
-	while (1)
-	{
-		pthread_mutex_lock(&tmp[id].mutex);
-		pthread_mutex_lock(&tmp[id - 1].mutex);
-		printf("%d %d has taken a right fork\n", gettimeofday(0, 0) - start, id);
-		printf("%d %d has taken a left fork\n", gettimeofday(0, 0) - start, id);
-		printf("%d %d is eating\n", gettimeofday(0, 0) - start, id);
-		// printf("%d\n", tmp->);
-		// usleep(100);
-		pthread_mutex_unlock(&tmp[id].mutex);
-		pthread_mutex_unlock(&tmp[id-1].mutex);
-	}
+	// printf("Hi i'm a philo number %d\n", id);
+	// start = gettimeofday();
+	// while (1)
+	// {
+	// 	pthread_mutex_lock(&tmp[id].mutex);
+	// 	pthread_mutex_lock(&tmp[id - 1].mutex);
+	// 	printf("%d %d has taken a right fork\n", gettimeofday(0, 0) - start, id);
+	// 	printf("%d %d has taken a left fork\n", gettimeofday(0, 0) - start, id);
+	// 	printf("%d %d is eating\n", gettimeofday(0, 0) - start, id);
+	// 	pthread_mutex_unlock(&tmp[id].mutex);
+	// 	pthread_mutex_unlock(&tmp[id-1].mutex);
+	// }
+	return (NULL);
 }
 
 void	ft_init_philo(t_philo *philo)
@@ -45,7 +45,6 @@ void	ft_init_philo(t_philo *philo)
 	philo->left_fork = 1;
 	philo->right_fork = 1;
 	philo->n_eating = 0;
-	pthread_mutex_init(&philo->mutex, NULL);
 }
 
 int	main(int argc, char **argv)
@@ -67,16 +66,19 @@ int	main(int argc, char **argv)
 			return (0);
 		philo = malloc(sizeof(t_philo) * data.num_philo);
 		i = -1;
+		data.fork = malloc(sizeof(pthread_mutex_t) * data.num_philo);
+		while (++i < data.num_philo)
+			pthread_mutex_init(&data.fork[i], NULL);
+		pthread_mutex_init(&data.write, NULL);
+		i = -1;
 		while (++i < data.num_philo)
 		{
-			// ft_init_philo(&philo[i]);
 			philo[i].index = (i + 1);
-			philo[i].left_fork = 1;
-			philo[i].right_fork = 1;
+			philo[i].left_fork = (i + 1) % data.num_philo;
+			philo[i].right_fork = i;
 			philo[i].n_eating = 0;
 			philo[i].last_mile = 0;
 			philo[i].data = &data;
-			pthread_mutex_init(&philo[i].mutex, NULL);
 		}
 		i = 0;
 		while (i < data.num_philo)
@@ -89,7 +91,5 @@ int	main(int argc, char **argv)
 		{
 			pthread_join(philo[i].thread, NULL);
 		}
-		for (int i = 0; i < data.num_philo; i++)
-			printf("index is %d ---- \n", philo[i].index);
 	}
 }

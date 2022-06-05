@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:14:06 by mkarim            #+#    #+#             */
-/*   Updated: 2022/06/05 09:40:14 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/05 11:01:19 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ typedef struct s_data
 	int				time_eat;
 	int				time_sleep;
 	int				ntm_eat;
+	pthread_mutex_t	write;
+	pthread_mutex_t	*fork;
+	long long		first_time;
 }	t_data;
 
 
@@ -38,7 +41,7 @@ typedef struct s_philo {
 	int				end;
 	int				n_eating;
 	int				last_mile;
-	pthread_mutex_t	mutex;
+	long long		last_eat;
 	struct s_data	*data;
 
 }	t_philo;

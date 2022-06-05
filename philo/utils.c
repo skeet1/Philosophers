@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:13:17 by mkarim            #+#    #+#             */
-/*   Updated: 2022/06/05 09:48:25 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/05 11:21:29 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,29 @@ void	ft_putstr(char *s)
 	i = -1;
 	while (s[++i])
 		write(1, &s[i], 1);
+}
+
+long long	ft_gettime()
+{
+	struct timeval	val;
+
+	gettimeofday(&val , NULL);
+	return(val.tv_sec / 1000 + val.tv_usec * 1000);
+}
+
+void ft_printf(t_data *data, long long time, int id, char *info)
+{
+	pthread_mutex_lock(&data->write);
+	printf("%lld %d %s", time, id, info);
+	pthread_mutex_unlock(&data->write);
+}
+
+void	ft_usleep(long long time, t_data *data)
+{
+	long long	enter_time;
+	(void)data;
+
+	enter_time = ft_gettime();
+	while (ft_gettime() - time < enter_time)
+		usleep(100);
 }
