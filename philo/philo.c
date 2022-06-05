@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:13:23 by mkarim            #+#    #+#             */
-/*   Updated: 2022/06/05 09:39:32 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/05 09:48:02 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,14 @@ int	main(int argc, char **argv)
 	i = -1;
 	if (argc == 5 || argc == 6)
 	{
-		if (!ft_check_num(argv, argc))
-			return (0);
 		data.num_philo = ft_atoi(argv[1]);
 		data.time_die = ft_atoi(argv[2]);
 		data.time_eat = ft_atoi(argv[3]);
 		data.time_sleep = ft_atoi(argv[4]);
 		if (argc == 6)
 			data.ntm_eat = ft_atoi(argv[5]);
-		ft_check_arg(data, argc);
+		if (!ft_check_arg(data, argc) || !ft_check_num(argv, argc))
+			return (0);
 		philo = malloc(sizeof(t_philo) * data.num_philo);
 		i = -1;
 		while (++i < data.num_philo)
