@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:13:23 by mkarim            #+#    #+#             */
-/*   Updated: 2022/06/04 08:31:23 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/05 09:39:32 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,25 @@ void	ft_init_philo(t_philo *philo)
 
 int	main(int argc, char **argv)
 {
-	t_data	*data;
+	t_data	data;
 	t_philo	*philo;
 	int		i;
 
 	i = -1;
-	data = (t_data *)malloc(sizeof(t_data));
-	if (!data)
-		return (0);
 	if (argc == 5 || argc == 6)
 	{
 		if (!ft_check_num(argv, argc))
 			return (0);
-		data->num_philo = ft_atoi(argv[1]);
-		data->time_die = ft_atoi(argv[2]);
-		data->time_eat = ft_atoi(argv[3]);
-		data->time_sleep = ft_atoi(argv[4]);
+		data.num_philo = ft_atoi(argv[1]);
+		data.time_die = ft_atoi(argv[2]);
+		data.time_eat = ft_atoi(argv[3]);
+		data.time_sleep = ft_atoi(argv[4]);
 		if (argc == 6)
-			data->ntm_eat = ft_atoi(argv[5]);
+			data.ntm_eat = ft_atoi(argv[5]);
 		ft_check_arg(data, argc);
-		philo = malloc(sizeof(t_philo) * data->num_philo);
+		philo = malloc(sizeof(t_philo) * data.num_philo);
 		i = -1;
-		while (++i < data->num_philo)
+		while (++i < data.num_philo)
 		{
 			// ft_init_philo(&philo[i]);
 			philo[i].index = (i + 1);
@@ -82,18 +79,18 @@ int	main(int argc, char **argv)
 			pthread_mutex_init(&philo[i].mutex, NULL);
 		}
 		i = 0;
-		philo->data = data;
-		while (i < data->num_philo)
+		philo->data = &data;
+		while (i < data.num_philo)
 		{
 			pthread_create(&philo[i].thread, NULL, routine, &philo[i]);
 			pthread_detach(philo[i].thread);
 			i++;
 		}
-		for (int i = 0 ; i < data->num_philo; i++)
+		for (int i = 0 ; i < data.num_philo; i++)
 		{
 			pthread_join(philo[i].thread, NULL);
 		}
-		for (int i = 0; i < data->num_philo; i++)
+		for (int i = 0; i < data.num_philo; i++)
 			printf("index is %d ---- \n", philo[i].index);
 	}
 }
