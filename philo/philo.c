@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:13:23 by mkarim            #+#    #+#             */
-/*   Updated: 2022/06/05 09:48:02 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/05 09:50:36 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ int	main(int argc, char **argv)
 			philo[i].right_fork = 1;
 			philo[i].n_eating = 0;
 			philo[i].last_mile = 0;
+			philo[i].data = &data;
 			pthread_mutex_init(&philo[i].mutex, NULL);
 		}
 		i = 0;
-		philo->data = &data;
 		while (i < data.num_philo)
 		{
 			pthread_create(&philo[i].thread, NULL, routine, &philo[i]);

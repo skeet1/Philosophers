@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:13:17 by mkarim            #+#    #+#             */
-/*   Updated: 2022/06/04 08:37:08 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/05 09:48:25 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,17 @@ int	ft_check_num(char **argv, int argc)
 	return (1);
 }
 
-int	ft_check_arg(t_data *data, int argc)
+int	ft_check_arg(t_data data, int argc)
 {
-	if (data->num_philo < 1)
+	if (data.num_philo < 1)
 		return (ft_putstr("We need 2 philo at least\n"), 0);
 	else if (argc == 6)
 	{
-		if (data->ntm_eat > 0)
+		if (data.ntm_eat > 0)
 			return(ft_putstr("each philospher must eat one time at least"), 0);
 	}
+	else if (data.time_die <= 60 || data.time_eat <= 60 || data.time_sleep <= 60)
+		return (ft_putstr("Don't test with values lower than 60 :D\n"), 0);
 	return (1);
 }
 
