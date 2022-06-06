@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:13:23 by mkarim            #+#    #+#             */
-/*   Updated: 2022/06/05 11:07:53 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/06 07:52:35 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ void	*routine(void *philo)
 	id = tmp->index;
 	if (id % 2)
 		usleep(100);
+	while (1)
+	{
+		pthread_mutex_lock(&tmp[id].data->fork);
+		ft_printf("")
+	}
 	// printf("Hi i'm a philo number %d\n", id);
 	// start = gettimeofday();
 	// while (1)
@@ -37,16 +42,6 @@ void	*routine(void *philo)
 	return (NULL);
 }
 
-void	ft_init_philo(t_philo *philo)
-{
-	static int	i;
-
-	philo->index = ++i;
-	philo->left_fork = 1;
-	philo->right_fork = 1;
-	philo->n_eating = 0;
-}
-
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -60,6 +55,7 @@ int	main(int argc, char **argv)
 		data.time_die = ft_atoi(argv[2]);
 		data.time_eat = ft_atoi(argv[3]);
 		data.time_sleep = ft_atoi(argv[4]);
+		data.death = 0;
 		if (argc == 6)
 			data.ntm_eat = ft_atoi(argv[5]);
 		if (!ft_check_arg(data, argc) || !ft_check_num(argv, argc))
@@ -81,11 +77,26 @@ int	main(int argc, char **argv)
 			philo[i].data = &data;
 		}
 		i = 0;
+		data.first_time = ft_gettime();
 		while (i < data.num_philo)
 		{
 			pthread_create(&philo[i].thread, NULL, routine, &philo[i]);
 			pthread_detach(philo[i].thread);
 			i++;
+			philo[i].last_eat = ft_gettime();
+		}
+		ft_death()
+		{
+
+			while(!data.death)
+			{
+				i = -1;
+				while(philo[++i])
+				{
+					if ()
+				}
+			}
+
 		}
 		for (int i = 0 ; i < data.num_philo; i++)
 		{

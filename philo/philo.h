@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:14:06 by mkarim            #+#    #+#             */
-/*   Updated: 2022/06/05 11:01:19 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/06 07:54:05 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_data
 	int				time_eat;
 	int				time_sleep;
 	int				ntm_eat;
+	int				death;
 	pthread_mutex_t	write;
 	pthread_mutex_t	*fork;
 	long long		first_time;
@@ -51,5 +52,7 @@ void		ft_putstr(char *s);
 int			ft_check_arg(t_data data, int argc);
 int	ft_check_num(char **argv, int argc);
 int	ft_check(char *str);
-
+void	ft_usleep(long long time, t_data *data);
+void ft_printf(t_data *data, long long time, int id, char *info);
+long long	ft_gettime();
 #endif
