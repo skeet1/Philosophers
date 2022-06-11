@@ -38,6 +38,18 @@ void	*routine(void *philo)
 	return (NULL);
 }
 
+// void	ft_init_data(t_data &data, int argc, char **argv)
+// {
+
+// 	data.num_philo = ft_atoi(argv[1]);
+// 	data.time_die = ft_atoi(argv[2]);
+// 	data.time_eat = ft_atoi(argv[3]);
+// 	data.time_sleep = ft_atoi(argv[4]);
+// 	data.death = 0;
+// 	if (argc == 6)
+// 		data.ntm_eat = ft_atoi(argv[5]);
+
+// }
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -97,7 +109,7 @@ int	main(int argc, char **argv)
 						if (ft_num_eating_check(philo, data.ntm_eat, data.num_philo))
 						{
 							data.death = 1;
-							return (printf("Koulchi klaa\n"), 0);
+							return (0);
 						}
 				}
 			}
