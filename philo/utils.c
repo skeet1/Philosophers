@@ -86,22 +86,26 @@ long long	ft_gettime()
 	struct timeval	val;
 
 	gettimeofday(&val , NULL);
-	return(val.tv_sec / 1000 + val.tv_usec * 1000);
+	return(val.tv_sec * 1000 + val.tv_usec / 1000);
 }
 
 void ft_printf(t_data *data, long long time, int id, char *info)
 {
-	pthread_mutex_lock(&data->write);
-	printf("%lld %d %s", time, id, info);
-	pthread_mutex_unlock(&data->write);
+	if (data->death == 0)
+	{
+		pthread_mutex_lock(&data->write);
+		printf("%lld %d %s\n", time, id, info);
+		pthread_mutex_unlock(&data->write);
+	}
 }
 
-void	ft_usleep(long long time, t_data *data)
+void	ft_usleep(long long time)
 {
 	long long	enter_time;
-	(void)data;
 
 	enter_time = ft_gettime();
 	while (ft_gettime() - time < enter_time)
 		usleep(100);
 }
+
+ft_num_eating_check(t_philo *philo, int n_eat)

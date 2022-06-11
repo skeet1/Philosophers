@@ -41,8 +41,7 @@ typedef struct s_philo {
 	int				start;
 	int				end;
 	int				n_eating;
-	int				last_mile;
-	long long		last_eat;
+	long long		last_meal;
 	struct s_data	*data;
 
 }	t_philo;
@@ -52,7 +51,7 @@ void		ft_putstr(char *s);
 int			ft_check_arg(t_data data, int argc);
 int	ft_check_num(char **argv, int argc);
 int	ft_check(char *str);
-void	ft_usleep(long long time, t_data *data);
+void	ft_usleep(long long time);
 void ft_printf(t_data *data, long long time, int id, char *info);
 long long	ft_gettime();
 #endif
