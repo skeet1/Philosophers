@@ -28,7 +28,7 @@ void	*routine(void *philo)
 		ft_printf(tmp->data, ft_gettime() - tmp->data->first_time, tmp->index, "is eating");
 		tmp->last_meal = ft_gettime();
 		ft_usleep(tmp->data->time_eat);
-		tmp[tmp->index].n_eating++;
+		tmp->n_eating++;
 		pthread_mutex_unlock(&tmp->data->fork[tmp->right_fork]);
 		pthread_mutex_unlock(&tmp->data->fork[tmp->left_fork]);
 		ft_printf(tmp->data, ft_gettime() - tmp->data->first_time, tmp->index, "is sleeping");
@@ -81,8 +81,6 @@ int	main(int argc, char **argv)
 			pthread_detach(philo[i].thread);
 			i++;
 		}
-		// ft_death()
-		// {
 		usleep(500);
 			while(!data.death)
 			{
@@ -95,6 +93,12 @@ int	main(int argc, char **argv)
 						data.death = 1;
 						return (0);
 					}
+					if (argc == 6)
+						if (ft_num_eating_check(philo, data.ntm_eat, data.num_philo))
+						{
+							data.death = 1;
+							return (printf("Koulchi klaa\n"), 0);
+						}
 				}
 			}
 	}

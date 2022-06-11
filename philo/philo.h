@@ -54,4 +54,5 @@ int	ft_check(char *str);
 void	ft_usleep(long long time);
 void ft_printf(t_data *data, long long time, int id, char *info);
 long long	ft_gettime();
+int	ft_num_eating_check(t_philo *philo, int n_eat, int num_philo);
 #endif

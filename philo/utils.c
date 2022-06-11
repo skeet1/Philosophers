@@ -40,7 +40,7 @@ int	ft_check_arg(t_data data, int argc)
 		return (ft_putstr("We need 2 philo at least\n"), 0);
 	else if (argc == 6)
 	{
-		if (data.ntm_eat > 0)
+		if (data.ntm_eat < 0)
 			return(ft_putstr("each philospher must eat one time at least"), 0);
 	}
 	else if (data.time_die <= 60 || data.time_eat <= 60 || data.time_sleep <= 60)
@@ -94,7 +94,7 @@ void ft_printf(t_data *data, long long time, int id, char *info)
 	if (data->death == 0)
 	{
 		pthread_mutex_lock(&data->write);
-		printf("%lld %d %s\n", time, id, info);
+		printf("\033[0;36m %lld \033[0;34m%d \033[0;32m%s\n", time, id, info);
 		pthread_mutex_unlock(&data->write);
 	}
 }
@@ -108,4 +108,15 @@ void	ft_usleep(long long time)
 		usleep(100);
 }
 
-ft_num_eating_check(t_philo *philo, int n_eat)
+int	ft_num_eating_check(t_philo *philo, int n_eat, int num_philo)
+{
+	int		i;
+
+	i = 0;
+	if (i < num_philo)
+	{
+		if (philo[i].n_eating < n_eat)
+			return (0);
+	}
+	return (1);
+}
