@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:13:23 by mkarim            #+#    #+#             */
-/*   Updated: 2022/06/06 07:52:35 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/12 15:01:26 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,34 @@ void	ft_init_data(t_data *data, int argc, char **argv)
 	if (argc == 6)
 		data->ntm_eat = ft_atoi(argv[5]);
 }
+
+int	check_death(t_data *data, t_philo *philo, int argc)
+{
+	int		i;
+	
+	while(!data->death)
+	{
+		i = -1;
+		while(++i < data->num_philo)
+		{
+			if (ft_gettime() - philo[i].last_meal >= data->time_die)
+			{
+				pthread_mutex_lock(&data->write);
+				printf("\033[0;36m %lld \033[0;34m%d \033[0;32m died\n", ft_gettime() - data->first_time, i + 1);
+				data->death = 1;
+				return (1);
+			}
+			if (ft_num_eating_check(philo, data->ntm_eat, data->num_philo, argc))
+			{
+				data->death = 1;
+				usleep(100);
+				return (1);
+			}
+		}
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -62,7 +90,6 @@ int	main(int argc, char **argv)
 	i = -1;
 	if (argc == 5 || argc == 6)
 	{
-
 		ft_init_data(&data, argc, argv);
 		if (!ft_check_num(argv, argc) || !ft_check_arg(data, argc))
 			return (0);
@@ -88,31 +115,12 @@ int	main(int argc, char **argv)
 		{
 			philo[i].last_meal = ft_gettime();
 			pthread_create(&philo[i].thread, NULL, routine, &philo[i]);
-			pthread_detach(philo[i].thread);
+			// pthread_detach(philo[i].thread);
 			i++;
 		}
 		usleep(500);
-			while(!data.death)
-			{
-				i = -1;
-				while(++i < data.num_philo)
-				{
-					if (ft_gettime() - philo[i].last_meal >= data.time_die)
-					{
-						pthread_mutex_lock(&data.write);
-						printf("\033[0;36m %lld \033[0;34m%d \033[0;32m died\n", ft_gettime() - data.first_time, i + 1);
-						data.death = 1;
-						return (0);
-					}
-					if (argc == 6)
-						if (ft_num_eating_check(philo, data.ntm_eat, data.num_philo))
-						{
-							data.death = 1;
-							usleep(100);
-							return (0);
-						}
-				}
-			}
+		if (check_death(&data, philo, argc))
+			return (0);
 	}
 	else
 		printf("\033[0;31m\033[1mWE NEED AT LEAST 4 ARGUMNETS\033[0m\n");

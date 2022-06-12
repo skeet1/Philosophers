@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:13:17 by mkarim            #+#    #+#             */
-/*   Updated: 2022/06/06 07:52:56 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/12 15:02:05 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_check(char *str)
 int	ft_check_num(char **argv, int argc)
 {
 	if (!ft_check(argv[1]) || !ft_check(argv[2]) || !ft_check(argv[3])
-			|| !ft_check(argv[4]))
+		|| !ft_check(argv[4]))
 		return (printf("\033[0;31m\033[1mError ARG\033[0m\n"), 0);
 	if (argc == 6)
 		if (!ft_check(argv[5]))
@@ -41,10 +41,13 @@ int	ft_check_arg(t_data data, int argc)
 	else if (argc == 6)
 	{
 		if (data.ntm_eat < 0)
-			return(printf("\033[0;31m\033[1meach philospher must eat one time at least\033[0m\n"), 0);
+			return (printf("\033[0;31m\033[1meach philospher "
+					"must eat one time at least\033[0m\n"), 0);
 	}
-	else if (data.time_die <= 60 || data.time_eat <= 60 || data.time_sleep <= 60)
-		return (printf("\033[0;31m\033[1mDon't test with values lower than 60 :D\033[0m\n"), 0);
+	else if (data.time_die < 60 || data.time_eat < 60
+		|| data.time_sleep < 60)
+		return (printf("\033[0;31m\033[1mDon't test with "
+				"values lower than 60 :D\033[0m\n"), 0);
 	return (1);
 }
 
@@ -70,53 +73,4 @@ long long	ft_atoi(char *s)
 		i++;
 	}
 	return (res * signe);
-}
-
-void	ft_putstr(char *s)
-{
-	int		i;
-
-	i = -1;
-	while (s[++i])
-		write(1, &s[i], 1);
-}
-
-long long	ft_gettime()
-{
-	struct timeval	val;
-
-	gettimeofday(&val , NULL);
-	return(val.tv_sec * 1000 + val.tv_usec / 1000);
-}
-
-void ft_printf(t_data *data, long long time, int id, char *info)
-{
-	if (data->death == 0)
-	{
-		pthread_mutex_lock(&data->write);
-		printf("\033[0;36m %lld \033[0;34m%d \033[0;32m%s\n", time, id, info);
-		pthread_mutex_unlock(&data->write);
-	}
-}
-
-void	ft_usleep(long long time, t_data *data)
-{
-	long long	enter_time;
-
-	enter_time = ft_gettime();
-	while (ft_gettime() - time < enter_time && !(data->death))
-		usleep(100);
-}
-
-int	ft_num_eating_check(t_philo *philo, int n_eat, int num_philo)
-{
-	int		i;
-
-	i = 0;
-	if (i < num_philo)
-	{
-		if (philo[i].n_eating < n_eat)
-			return (0);
-	}
-	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:14:06 by mkarim            #+#    #+#             */
-/*   Updated: 2022/06/06 07:54:05 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/12 14:53:08 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_data
 	long long		first_time;
 }	t_data;
 
-
 typedef struct s_philo {
 	int				index;
 	pthread_t		thread;
@@ -49,10 +48,10 @@ typedef struct s_philo {
 long long	ft_atoi(char *s);
 void		ft_putstr(char *s);
 int			ft_check_arg(t_data data, int argc);
-int	ft_check_num(char **argv, int argc);
-int	ft_check(char *str);
-void	ft_usleep(long long time, t_data *data);
-void ft_printf(t_data *data, long long time, int id, char *info);
-long long	ft_gettime();
-int	ft_num_eating_check(t_philo *philo, int n_eat, int num_philo);
+int			ft_check_num(char **argv, int argc);
+int			ft_check(char *str);
+void		ft_usleep(long long time, t_data *data);
+void		ft_printf(t_data *data, long long time, int id, char *info);
+long long	ft_gettime(void);
+int			ft_num_eating_check(t_philo *philo, int n_eat, int num_philo, int argc);
 #endif
