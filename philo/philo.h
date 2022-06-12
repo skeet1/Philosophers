@@ -51,7 +51,7 @@ void		ft_putstr(char *s);
 int			ft_check_arg(t_data data, int argc);
 int	ft_check_num(char **argv, int argc);
 int	ft_check(char *str);
-void	ft_usleep(long long time);
+void	ft_usleep(long long time, t_data *data);
 void ft_printf(t_data *data, long long time, int id, char *info);
 long long	ft_gettime();
 int	ft_num_eating_check(t_philo *philo, int n_eat, int num_philo);

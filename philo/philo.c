@@ -19,7 +19,7 @@ void	*routine(void *philo)
 	tmp = (t_philo*)philo;
 	if (tmp->index % 2)
 		usleep(600);
-	while (1)
+	while (tmp->data->death == 0)
 	{
 		pthread_mutex_lock(&tmp->data->fork[tmp->right_fork]);
 		ft_printf(tmp->data, ft_gettime() - tmp->data->first_time, tmp->index, "has taken a fork");
@@ -27,29 +27,32 @@ void	*routine(void *philo)
 		ft_printf(tmp->data, ft_gettime() - tmp->data->first_time, tmp->index, "has taken a fork");
 		ft_printf(tmp->data, ft_gettime() - tmp->data->first_time, tmp->index, "is eating");
 		tmp->last_meal = ft_gettime();
-		ft_usleep(tmp->data->time_eat);
+		ft_usleep(tmp->data->time_eat, tmp->data);
+		if (tmp->data->death)
+			return (NULL);
 		tmp->n_eating++;
 		pthread_mutex_unlock(&tmp->data->fork[tmp->right_fork]);
 		pthread_mutex_unlock(&tmp->data->fork[tmp->left_fork]);
 		ft_printf(tmp->data, ft_gettime() - tmp->data->first_time, tmp->index, "is sleeping");
-		ft_usleep(tmp->data->time_sleep);
+		ft_usleep(tmp->data->time_sleep, tmp->data);
+		if (tmp->data->death)
+			return (NULL);
 		ft_printf(tmp->data, ft_gettime() - tmp->data->first_time, tmp->index, "is thinking");
 	}
 	return (NULL);
 }
 
-// void	ft_init_data(t_data &data, int argc, char **argv)
-// {
+void	ft_init_data(t_data *data, int argc, char **argv)
+{
 
-// 	data.num_philo = ft_atoi(argv[1]);
-// 	data.time_die = ft_atoi(argv[2]);
-// 	data.time_eat = ft_atoi(argv[3]);
-// 	data.time_sleep = ft_atoi(argv[4]);
-// 	data.death = 0;
-// 	if (argc == 6)
-// 		data.ntm_eat = ft_atoi(argv[5]);
-
-// }
+	data->num_philo = ft_atoi(argv[1]);
+	data->time_die = ft_atoi(argv[2]);
+	data->time_eat = ft_atoi(argv[3]);
+	data->time_sleep = ft_atoi(argv[4]);
+	data->death = 0;
+	if (argc == 6)
+		data->ntm_eat = ft_atoi(argv[5]);
+}
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -59,14 +62,9 @@ int	main(int argc, char **argv)
 	i = -1;
 	if (argc == 5 || argc == 6)
 	{
-		data.num_philo = ft_atoi(argv[1]);
-		data.time_die = ft_atoi(argv[2]);
-		data.time_eat = ft_atoi(argv[3]);
-		data.time_sleep = ft_atoi(argv[4]);
-		data.death = 0;
-		if (argc == 6)
-			data.ntm_eat = ft_atoi(argv[5]);
-		if (!ft_check_arg(data, argc) || !ft_check_num(argv, argc))
+
+		ft_init_data(&data, argc, argv);
+		if (!ft_check_num(argv, argc) || !ft_check_arg(data, argc))
 			return (0);
 		philo = malloc(sizeof(t_philo) * data.num_philo);
 		i = -1;
@@ -101,7 +99,8 @@ int	main(int argc, char **argv)
 				{
 					if (ft_gettime() - philo[i].last_meal >= data.time_die)
 					{
-						ft_printf(philo[i].data, ft_gettime() - data.first_time, i + 1, "died");
+						pthread_mutex_lock(&data.write);
+						printf("\033[0;36m %lld \033[0;34m%d \033[0;32m died\n", ft_gettime() - data.first_time, i + 1);
 						data.death = 1;
 						return (0);
 					}
@@ -109,9 +108,12 @@ int	main(int argc, char **argv)
 						if (ft_num_eating_check(philo, data.ntm_eat, data.num_philo))
 						{
 							data.death = 1;
+							usleep(100);
 							return (0);
 						}
 				}
 			}
 	}
+	else
+		printf("\033[0;31m\033[1mWE NEED AT LEAST 4 ARGUMNETS\033[0m\n");
 }

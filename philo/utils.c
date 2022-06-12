@@ -27,24 +27,24 @@ int	ft_check_num(char **argv, int argc)
 {
 	if (!ft_check(argv[1]) || !ft_check(argv[2]) || !ft_check(argv[3])
 			|| !ft_check(argv[4]))
-		return (ft_putstr("Error ARG\n"), 0);
+		return (printf("\033[0;31m\033[1mError ARG\033[0m\n"), 0);
 	if (argc == 6)
 		if (!ft_check(argv[5]))
-			return (ft_putstr("Error ARG\n"), 0);
+			return (printf("\033[0;31m\033[1mError ARG\033[0m\n"), 0);
 	return (1);
 }
 
 int	ft_check_arg(t_data data, int argc)
 {
 	if (data.num_philo < 1)
-		return (ft_putstr("We need 2 philo at least\n"), 0);
+		return (printf("\033[0;31m\033[1mWe need 2 philo at least\033[0m\n"), 0);
 	else if (argc == 6)
 	{
 		if (data.ntm_eat < 0)
-			return(ft_putstr("each philospher must eat one time at least"), 0);
+			return(printf("\033[0;31m\033[1meach philospher must eat one time at least\033[0m\n"), 0);
 	}
 	else if (data.time_die <= 60 || data.time_eat <= 60 || data.time_sleep <= 60)
-		return (ft_putstr("Don't test with values lower than 60 :D\n"), 0);
+		return (printf("\033[0;31m\033[1mDon't test with values lower than 60 :D\033[0m\n"), 0);
 	return (1);
 }
 
@@ -99,12 +99,12 @@ void ft_printf(t_data *data, long long time, int id, char *info)
 	}
 }
 
-void	ft_usleep(long long time)
+void	ft_usleep(long long time, t_data *data)
 {
 	long long	enter_time;
 
 	enter_time = ft_gettime();
-	while (ft_gettime() - time < enter_time)
+	while (ft_gettime() - time < enter_time && !(data->death))
 		usleep(100);
 }
 
