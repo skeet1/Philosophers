@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:14:06 by mkarim            #+#    #+#             */
-/*   Updated: 2022/06/12 14:53:08 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/12 16:18:22 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,11 @@ int			ft_check(char *str);
 void		ft_usleep(long long time, t_data *data);
 void		ft_printf(t_data *data, long long time, int id, char *info);
 long long	ft_gettime(void);
-int			ft_num_eating_check(t_philo *philo, int n_eat, int num_philo, int argc);
+int			ft_num_eating_check(t_philo *philo, int n_eat,
+				int num_philo, int argc);
+int			check_death(t_data *data, t_philo *philo, int argc);
+void		ft_create_philo(t_philo **ph, t_data *data);
+void		ft_init_philo(t_philo **ph, t_data *data);
+void		ft_init_data(t_data *data, int argc, char **argv);
+void		*routine(void *philo);
 #endif

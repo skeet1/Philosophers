@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/12 14:39:56 by mkarim            #+#    #+#             */
-/*   Updated: 2022/06/12 14:56:21 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/12 16:02:12 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,15 @@ long long	ft_gettime(void)
 
 void	ft_printf(t_data *data, long long time, int id, char *info)
 {
+	char	*fork;
+
+	fork = "fork";
 	if (data->death == 0)
 	{
 		pthread_mutex_lock(&data->write);
+		if (fork == info)
+			info = "has taken a fork";
+		time = ft_gettime() - time;
 		printf("\033[0;36m %lld \033[0;34m%d \033[0;32m%s\n", time, id, info);
 		pthread_mutex_unlock(&data->write);
 	}

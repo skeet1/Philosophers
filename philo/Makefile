@@ -6,13 +6,13 @@
 #    By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/10 18:09:40 by mkarim            #+#    #+#              #
-#    Updated: 2022/06/12 14:43:31 by mkarim           ###   ########.fr        #
+#    Updated: 2022/06/12 16:16:04 by mkarim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SRC = philo.c utils.c utils1.c
+SRC = philo.c utils.c utils1.c ft_init.c
 
 OBJ = $(SRC:.c=.o)
 
