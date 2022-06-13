@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:13:23 by mkarim            #+#    #+#             */
-/*   Updated: 2022/06/12 16:13:59 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/13 13:03:57 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	main(int argc, char **argv)
 		pthread_mutex_init(&data.write, NULL);
 		ft_init_philo(&philo, &data);
 		ft_create_philo(&philo, &data);
-		usleep(500);
 		if (check_death(&data, philo, argc))
 			return (0);
 	}

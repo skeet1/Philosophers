@@ -6,7 +6,7 @@
 /*   By: mkarim <mkarim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 18:14:06 by mkarim            #+#    #+#             */
-/*   Updated: 2022/06/12 16:18:22 by mkarim           ###   ########.fr       */
+/*   Updated: 2022/06/13 13:03:44 by mkarim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ typedef struct s_philo {
 	pthread_t		thread;
 	int				right_fork;
 	int				left_fork;
-	int				start;
-	int				end;
 	int				n_eating;
 	long long		last_meal;
 	struct s_data	*data;
